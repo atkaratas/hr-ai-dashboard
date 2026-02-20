@@ -3,86 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warlock HR AI - Dynamic Dashboard</title>
+    <title>Warlock HR AI - Enterprise Dashboard v3.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0f172a; color: #e2e8f0; font-family: 'Inter', sans-serif; }
         .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .tab-active { border-bottom: 2px solid #60a5fa; color: #60a5fa; font-weight: bold; }
         .hidden { display: none; }
     </style>
 </head>
 <body class="p-4 md:p-8">
     <div class="max-w-7xl mx-auto">
-        <header class="flex justify-between items-center mb-8">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-blue-400">🧙‍♂️ Warlock HR AI <span id="view-label" class="text-sm font-normal text-slate-500 ml-2">Dinamik Görünüm</span></h1>
-                <p id="user-info" class="text-slate-400">Giriş Yapıldı: Misafir</p>
+                <h1 class="text-3xl font-bold text-blue-400">🧙‍♂️ Warlock HR AI <span id="view-label" class="text-sm font-normal text-slate-500 ml-2">Enterprise v3.1</span></h1>
+                <p id="user-info" class="text-slate-400 italic">Admin Erişimi Aktif</p>
             </div>
-            <div id="admin-only-stats" class="hidden flex gap-4">
-                <div class="glass px-4 py-2 rounded-lg text-right">
-                    <div class="text-xs text-slate-500 uppercase">Toplam Maliyet</div>
-                    <div class="text-xl font-mono text-red-400">₺542.000</div>
+            <div id="mali-ozet" class="flex gap-4">
+                <div class="glass px-4 py-2 rounded-lg text-right border-l-2 border-green-500">
+                    <div class="text-[10px] text-slate-500 uppercase font-bold">Kasa Bakiyesi</div>
+                    <div class="text-lg font-mono text-green-400">₺142.350</div>
                 </div>
             </div>
         </header>
 
-        <!-- Role Selector (Simulation for Demo) -->
-        <div class="mb-8 p-4 glass rounded-xl border-blue-500/30 border">
-            <label class="text-xs font-bold text-blue-400 uppercase block mb-2">Görünüm Testi (Rol Seçin):</label>
-            <div class="flex flex-wrap gap-2">
-                <button onclick="switchView('STAFF')" class="px-3 py-1 bg-slate-700 rounded text-xs">STAFF (Taylan)</button>
-                <button onclick="switchView('MANAGER')" class="px-3 py-1 bg-slate-700 rounded text-xs">MANAGER (Senan)</button>
-                <button onclick="switchView('HR')" class="px-3 py-1 bg-slate-700 rounded text-xs">HR / GM / GMY</button>
-                <button onclick="switchView('ADMIN')" class="px-3 py-1 bg-blue-600 rounded text-xs font-bold">ADMIN (Chief)</button>
-            </div>
-        </div>
-
-        <!-- Dashboard Content -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <div class="glass p-4 rounded-xl">
-                <div class="text-slate-400 text-sm">İzin Durumu</div>
-                <div id="stat-leave" class="text-2xl font-bold text-blue-400">-</div>
-            </div>
-            <div class="glass p-4 rounded-xl">
-                <div class="text-slate-400 text-sm">Masraf Durumu</div>
-                <div id="stat-expense" class="text-2xl font-bold text-yellow-400">-</div>
-            </div>
-            <div id="manager-stat" class="hidden glass p-4 rounded-xl">
-                <div class="text-slate-400 text-sm">Ekip Onay Bekleyen</div>
-                <div class="text-2xl font-bold text-red-400">5</div>
-            </div>
+        <!-- Departman Filtreleri (Dinamik) -->
+        <div class="flex flex-wrap gap-4 mb-6 border-b border-slate-700 pb-2 overflow-x-auto text-sm">
+            <button onclick="filterDept('ALL')" id="tab-ALL" class="px-4 py-2 tab-active">TÜMÜ</button>
+            <button onclick="filterDept('Pazarlama')" id="tab-Pazarlama" class="px-4 py-2 text-slate-400 hover:text-white transition">PAZARLAMA</button>
+            <button onclick="filterDept('Ecom')" id="tab-Ecom" class="px-4 py-2 text-slate-400 hover:text-white transition">ECOM</button>
+            <button onclick="filterDept('Retail')" id="tab-Retail" class="px-4 py-2 text-slate-400 hover:text-white transition">RETAIL</button>
+            <button onclick="filterDept('Planning & Pricing')" id="tab-Planning" class="px-4 py-2 text-slate-400 hover:text-white transition">PLANNING</button>
+            <button onclick="filterDept('Sourcing & Category')" id="tab-Sourcing" class="px-4 py-2 text-slate-400 hover:text-white transition">SOURCING</button>
+            <button onclick="filterDept('IT Support')" id="tab-IT" class="px-4 py-2 text-slate-400 hover:text-white transition">IT & ERP</button>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 glass p-6 rounded-2xl">
-                <h2 id="table-title" class="text-xl font-bold mb-4">İşlemler</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
-                        <thead class="border-b border-slate-800 text-slate-500 uppercase text-xs">
-                            <tr>
-                                <th class="py-3 px-2">Personel</th>
-                                <th class="py-3 px-2">Tür</th>
-                                <th class="py-3 px-2">Detay</th>
-                                <th class="py-3 px-2">Durum</th>
-                            </tr>
-                        </thead>
-                        <tbody id="data-table" class="divide-y divide-slate-800">
-                            <!-- Data injected by JS -->
-                        </tbody>
-                    </table>
+            <!-- Veri Tablosu -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="glass p-6 rounded-2xl">
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-blue-500 rounded-full"></span>
+                        <span id="dept-title">Tüm Departmanlar</span> - Personel Listesi
+                    </h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="border-b border-slate-800 text-slate-500 uppercase text-[10px]">
+                                <tr>
+                                    <th class="py-3 px-2">İsim</th>
+                                    <th class="py-3 px-2">Unvan</th>
+                                    <th class="py-3 px-2">Departman</th>
+                                    <th class="py-3 px-2">Yetki</th>
+                                </tr>
+                            </thead>
+                            <tbody id="personel-body" class="divide-y divide-slate-800">
+                                <!-- JS ile doldurulacak -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
+            <!-- Sağ Panel -->
             <div class="space-y-6">
-                <div id="hr-insights" class="hidden glass p-6 rounded-2xl border-t-2 border-orange-500">
-                    <h3 class="font-bold mb-2">HR İçgörü (AI)</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Şirket genelinde yıllık izin kullanım oranı %12 artış gösterdi. Planlama ekibinin izinleri çakışıyor.</p>
+                <div class="glass p-6 rounded-2xl bg-gradient-to-br from-blue-900/10 to-transparent">
+                    <h3 class="text-sm font-bold text-blue-400 uppercase mb-4">Departman Analizi</h3>
+                    <div id="dept-info" class="text-xs text-slate-300 leading-relaxed">
+                        Sol taraftaki tablardan bir departman seçerek o ekibin detaylarını, yöneticisini ve toplam harcamasını görebilirsiniz.
+                    </div>
                 </div>
+                
                 <div class="glass p-6 rounded-2xl">
-                    <h3 class="font-bold mb-4">Hızlı İşlemler</h3>
-                    <div id="action-buttons" class="space-y-2">
-                        <button class="w-full py-2 bg-slate-800 hover:bg-slate-700 rounded text-xs">İzin Talebi Oluştur</button>
-                        <button class="w-full py-2 bg-slate-800 hover:bg-slate-700 rounded text-xs">Masraf Fişi Yükle</button>
+                    <h3 class="font-bold mb-4">Sistem İşlemleri</h3>
+                    <a href="data/mock_data.xlsx" download class="block w-full text-center py-3 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold transition">Excel Raporu İndir</a>
+                    <div class="mt-4 p-3 bg-slate-800/50 rounded-lg border border-slate-700 text-[10px] text-slate-500">
+                        * Tüm veriler Chief tarafından onaylanan users.json tabanlıdır.
                     </div>
                 </div>
             </div>
@@ -90,74 +85,61 @@
     </div>
 
     <script>
-        const data = {
-            STAFF: {
-                label: "Personel Görünümü",
-                user: "Taylan Kasap (Developer)",
-                stats: { leave: "15 Gün Kalan", expense: "₺450 Beklemede" },
-                rows: [["Taylan Kasap", "Masraf", "Mesai Yemeği", "BEKLEMEDE"]],
-                actions: ["İzin Talebi", "Masraf Yükle"]
-            },
-            MANAGER: {
-                label: "Yönetici Görünümü (Ecom)",
-                user: "Senan Daşdemir (Manager)",
-                stats: { leave: "20 Gün Kalan", expense: "₺1.399 Onaylandı" },
-                rows: [
-                    ["Taylan Kasap", "Masraf", "Mesai Yemeği", "ONAY BEKLİYOR"],
-                    ["Okan Şeremet", "İzin", "Yıllık İzin", "ONAY BEKLİYOR"],
-                    ["Senan D.", "Masraf", "Kiğılı", "ONAYLANDI"]
-                ],
-                actions: ["İzin Talebi", "Masraf Yükle", "Ekip Onayları"]
-            },
-            HR: {
-                label: "HR / GM / GMY Görünümü",
-                user: "Ayşenur Dinçer (HR Manager)",
-                stats: { leave: "22 Bekleyen", expense: "₺18.450 Toplam" },
-                rows: [
-                    ["Taylan (Ecom)", "Masraf", "450 TL", "ONAY BEKLİYOR"],
-                    ["Abdullah (Plan)", "İzin", "3 Gün", "ONAYLANDI"],
-                    ["Alper (Retail)", "Masraf", "2.500 TL", "ONAY BEKLİYOR"]
-                ],
-                actions: ["Tüm Raporlar", "Maaş Listeleri", "İzin Takvimi"]
-            },
-            ADMIN: {
-                label: "Admin Paneli (Chief)",
-                user: "Deniz Tekin (Chief)",
-                stats: { leave: "24 Bekleyen", expense: "₺142.350 Borç" },
-                rows: [
-                    ["Senan D.", "Maaş", "Gizli Veri", "GÖRÜNTÜLE"],
-                    ["Sami Güzel", "Onay", "Tüm Şirket", "YÖNET"],
-                    ["Sistem", "Log", "Yeni Kullanıcı", "AKTİF"]
-                ],
-                actions: ["Sistem Ayarları", "Yetki Yönetimi", "Excel Dışa Aktar"]
-            }
-        };
+        const users = [
+            {name: "Deniz Tekin", title: "Chief", dept: "Yönetim", role: "ADMIN"},
+            {name: "Sami Güzel", title: "Genel Manager", dept: "Yönetim", role: "MANAGER"},
+            {name: "Serdar Şahin", title: "Genel Müdür Yardımcısı", dept: "Yönetim", role: "MANAGER"},
+            {name: "Talha Karataş", title: "Technology Director", dept: "Genel", role: "MANAGER"},
+            {name: "Senan Daşdemir", title: "Technologist / PO", dept: "Ecom", role: "MANAGER"},
+            {name: "Taylan Kasap", title: "Developer", dept: "Ecom", role: "STAFF"},
+            {name: "Alper Tunga Özbek", title: "Senior Retail Manager", dept: "Retail", role: "MANAGER"},
+            {name: "Erman Ermaniş", title: "Retail Sales Manager", dept: "Retail", role: "MANAGER"},
+            {name: "Abdullah Yavuz", title: "Planning Manager", dept: "Planning & Pricing", role: "MANAGER"},
+            {name: "Berker Bengi", title: "Digital Marketing Manager", dept: "Pazarlama", role: "MANAGER"},
+            {name: "Selen Murat", title: "Marketing Specialist", dept: "Pazarlama", role: "STAFF"},
+            {name: "Ali Sönmez", title: "IT Support Specialist", dept: "IT Support", role: "STAFF"},
+            {name: "Ayşenur Dinçer", title: "HR Manager", dept: "İK", role: "MANAGER"}
+        ];
 
-        function switchView(role) {
-            const view = data[role];
-            document.getElementById('view-label').innerText = view.label;
-            document.getElementById('user-info').innerText = "Giriş Yapıldı: " + view.user;
-            document.getElementById('stat-leave').innerText = view.stats.leave;
-            document.getElementById('stat-expense').innerText = view.stats.expense;
-            
-            const tbody = document.getElementById('data-table');
-            tbody.innerHTML = view.rows.map(row => `
-                <tr>
-                    <td class="py-3 px-2">${row[0]}</td>
-                    <td class="py-3 px-2">${row[1]}</td>
-                    <td class="py-3 px-2 text-slate-400">${row[2]}</td>
-                    <td class="py-3 px-2"><span class="text-xs font-bold">${row[3]}</span></td>
+        function filterDept(dept) {
+            // Tab stillerini güncelle
+            document.querySelectorAll('button[id^="tab-"]').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('text-slate-400');
+            });
+            const activeTab = document.getElementById(dept === 'ALL' ? 'tab-ALL' : (dept.includes('Planning') ? 'tab-Planning' : (dept.includes('Ecom') ? 'tab-Ecom' : (dept.includes('Retail') ? 'tab-Retail' : (dept.includes('Pazarlama') ? 'tab-Pazarlama' : (dept.includes('IT') ? 'tab-IT' : 'tab-Sourcing'))))));
+            if(activeTab) {
+                activeTab.classList.add('tab-active');
+                activeTab.classList.remove('text-slate-400');
+            }
+
+            // Tabloyu filtrele
+            const filtered = dept === 'ALL' ? users : users.filter(u => u.dept.includes(dept));
+            const tbody = document.getElementById('personel-body');
+            tbody.innerHTML = filtered.map(u => `
+                <tr class="hover:bg-slate-800/20 transition">
+                    <td class="py-4 px-2 font-medium">${u.name}</td>
+                    <td class="py-4 px-2 text-slate-400">${u.title}</td>
+                    <td class="py-4 px-2">${u.dept}</td>
+                    <td class="py-4 px-2">
+                        <span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${u.role === 'ADMIN' ? 'bg-red-500/20 text-red-400' : (u.role === 'MANAGER' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400')}">
+                            ${u.role}
+                        </span>
+                    </td>
                 </tr>
             `).join('');
 
-            // UI Hardening based on role
-            document.getElementById('admin-only-stats').classList.toggle('hidden', role !== 'ADMIN' && role !== 'HR');
-            document.getElementById('manager-stat').classList.toggle('hidden', role === 'STAFF');
-            document.getElementById('hr-insights').classList.toggle('hidden', role !== 'HR' && role !== 'ADMIN');
+            document.getElementById('dept-title').innerText = dept === 'ALL' ? 'Tüm Departmanlar' : dept;
+            
+            // Sağ paneli güncelle
+            const manager = filtered.find(u => u.role === 'MANAGER');
+            document.getElementById('dept-info').innerHTML = dept === 'ALL' ? 
+                "Tüm şirketi görüntülüyorsunuz." : 
+                `<b>Yönetici:</b> ${manager ? manager.name : 'Tanımlanmadı'}<br><b>Ekip Sayısı:</b> ${filtered.length} Personel`;
         }
 
-        // Default view
-        switchView('ADMIN');
+        // İlk açılışta Tümü
+        filterDept('ALL');
     </script>
 </body>
 </html>
