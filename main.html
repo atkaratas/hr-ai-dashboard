@@ -19,11 +19,16 @@
                 <h1 class="text-3xl font-bold text-blue-400">🧙‍♂️ Warlock HR AI <span id="view-label" class="text-sm font-normal text-slate-500 ml-2">Enterprise v3.2</span></h1>
                 <p id="user-info" class="text-slate-400 italic">Admin Erişimi Aktif</p>
             </div>
-            <div id="mali-ozet" class="flex gap-4">
-                <div class="glass px-4 py-2 rounded-lg text-right border-l-2 border-green-500">
-                    <div class="text-[10px] text-slate-500 uppercase font-bold">Kasa Bakiyesi</div>
-                    <div class="text-lg font-mono text-green-400">₺142.350</div>
+            <div class="flex items-center gap-4">
+                <div id="mali-ozet" class="flex gap-4">
+                    <div class="glass px-4 py-2 rounded-lg text-right border-l-2 border-green-500">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold">Kasa Bakiyesi</div>
+                        <div class="text-lg font-mono text-green-400">₺142.350</div>
+                    </div>
                 </div>
+                <button onclick="handleLogout()" class="glass px-4 py-2 rounded-lg text-red-400 hover:bg-red-500/10 transition font-bold text-xs uppercase tracking-wider">
+                    Güvenli Çıkış
+                </button>
             </div>
         </header>
 
@@ -80,6 +85,13 @@
     </div>
 
     <script>
+        function handleLogout() {
+            if(confirm("Sistemden çıkış yapmak istediğinize emin misiniz?")) {
+                // Auth parametrelerini temizleyerek login sayfasına yönlendir
+                window.location.href = "index.html";
+            }
+        }
+
         const users = [
             {name: "Deniz Tekin", title: "Chief", dept: "Yönetim", role: "ADMIN"},
             {name: "Sami Güzel", title: "Genel Manager", dept: "Yönetim", role: "MANAGER"},
