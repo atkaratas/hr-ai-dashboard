@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warlock HR AI - Enterprise Dashboard v3.1</title>
+    <title>Warlock HR AI - Enterprise Dashboard v3.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0f172a; color: #e2e8f0; font-family: 'Inter', sans-serif; }
@@ -16,7 +16,7 @@
     <div class="max-w-7xl mx-auto">
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-blue-400">🧙‍♂️ Warlock HR AI <span id="view-label" class="text-sm font-normal text-slate-500 ml-2">Enterprise v3.1</span></h1>
+                <h1 class="text-3xl font-bold text-blue-400">🧙‍♂️ Warlock HR AI <span id="view-label" class="text-sm font-normal text-slate-500 ml-2">Enterprise v3.2</span></h1>
                 <p id="user-info" class="text-slate-400 italic">Admin Erişimi Aktif</p>
             </div>
             <div id="mali-ozet" class="flex gap-4">
@@ -28,14 +28,9 @@
         </header>
 
         <!-- Departman Filtreleri (Dinamik) -->
-        <div class="flex flex-wrap gap-4 mb-6 border-b border-slate-700 pb-2 overflow-x-auto text-sm">
-            <button onclick="filterDept('ALL')" id="tab-ALL" class="px-4 py-2 tab-active">TÜMÜ</button>
-            <button onclick="filterDept('Pazarlama')" id="tab-Pazarlama" class="px-4 py-2 text-slate-400 hover:text-white transition">PAZARLAMA</button>
-            <button onclick="filterDept('Ecom')" id="tab-Ecom" class="px-4 py-2 text-slate-400 hover:text-white transition">ECOM</button>
-            <button onclick="filterDept('Retail')" id="tab-Retail" class="px-4 py-2 text-slate-400 hover:text-white transition">RETAIL</button>
-            <button onclick="filterDept('Planning & Pricing')" id="tab-Planning" class="px-4 py-2 text-slate-400 hover:text-white transition">PLANNING</button>
-            <button onclick="filterDept('Sourcing & Category')" id="tab-Sourcing" class="px-4 py-2 text-slate-400 hover:text-white transition">SOURCING</button>
-            <button onclick="filterDept('IT Support')" id="tab-IT" class="px-4 py-2 text-slate-400 hover:text-white transition">IT & ERP</button>
+        <div id="dept-tabs" class="flex flex-wrap gap-4 mb-6 border-b border-slate-700 pb-2 overflow-x-auto text-sm">
+            <button onclick="filterDept('ALL')" id="tab-ALL" class="px-4 py-2 tab-active whitespace-nowrap">TÜMÜ</button>
+            <!-- Tabs will be injected here -->
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -44,7 +39,7 @@
                 <div class="glass p-6 rounded-2xl">
                     <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
                         <span class="w-2 h-6 bg-blue-500 rounded-full"></span>
-                        <span id="dept-title">Tüm Departmanlar</span> - Personel Listesi
+                        <span id="dept-title">Tüm Departmanlar</span> - Personel Listesi (<span id="count-label">0</span>)
                     </h2>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm">
@@ -90,31 +85,95 @@
             {name: "Sami Güzel", title: "Genel Manager", dept: "Yönetim", role: "MANAGER"},
             {name: "Serdar Şahin", title: "Genel Müdür Yardımcısı", dept: "Yönetim", role: "MANAGER"},
             {name: "Talha Karataş", title: "Technology Director", dept: "Genel", role: "MANAGER"},
-            {name: "Senan Daşdemir", title: "Technologist / PO", dept: "Ecom", role: "MANAGER"},
+            {name: "Ali Sönmez", title: "IT Support Specialist", dept: "IT Support", role: "STAFF"},
+            {name: "Emre Büyükperdahcı", title: "System Admin", dept: "IT Support", role: "STAFF"},
+            {name: "Ramazan Döleker", title: "ERP Product Owner", dept: "ERP", role: "MANAGER"},
+            {name: "Erdem Dayı", title: "Developer", dept: "Retail & Operations & ERP", role: "STAFF"},
+            {name: "Haluk Gül", title: "QA Engineer", dept: "Ecom ERP", role: "STAFF"},
+            {name: "Mehmet Altuntaş", title: "Data Analyst", dept: "DATA & BI", role: "STAFF"},
+            {name: "Okan Şeremet", title: "Developer", dept: "Ecom", role: "STAFF"},
             {name: "Taylan Kasap", title: "Developer", dept: "Ecom", role: "STAFF"},
+            {name: "Yasin Ahlatcı", title: "DevOps Engineer", dept: "Ecom", role: "STAFF"},
+            {name: "Senan Daşdemir", title: "Technologist / PO", dept: "Ecom", role: "MANAGER"},
+            {name: "Murat Ermiş", title: "Developer", dept: "Ecom", role: "STAFF"},
+            {name: "Erhan Ariş", title: "Developer", dept: "Ecom", role: "STAFF"},
+            {name: "Sümeyye Özdemir", title: "Planning Specialist", dept: "Planning & Pricing", role: "STAFF"},
+            {name: "Ebru Günal", title: "Merchandising Team Lead", dept: "Planning & Pricing", role: "STAFF"},
+            {name: "Deniz Dönmez", title: "Senior Merchandise Planner", dept: "Planning & Pricing", role: "STAFF"},
+            {name: "Abdullah Yavuz", title: "Planning Manager", dept: "Planning & Pricing", role: "MANAGER"},
             {name: "Alper Tunga Özbek", title: "Senior Retail Manager", dept: "Retail", role: "MANAGER"},
             {name: "Erman Ermaniş", title: "Retail Sales Manager", dept: "Retail", role: "MANAGER"},
-            {name: "Abdullah Yavuz", title: "Planning Manager", dept: "Planning & Pricing", role: "MANAGER"},
+            {name: "Sera Tekdoğan", title: "Store Operation Support Specialist", dept: "Retail", role: "STAFF"},
+            {name: "Tuba Kaya", title: "Area Product Coordination Leader", dept: "Retail", role: "STAFF"},
+            {name: "Nuriye Tunçel", title: "Visual Merchandising Leader", dept: "Retail", role: "STAFF"},
+            {name: "Dilara Gökçe", title: "Store Operation Support Assistant Specialist", dept: "Retail", role: "STAFF"},
+            {name: "Serkan Arkan", title: "Private Label Director", dept: "PL", role: "MANAGER"},
+            {name: "Emel Akar", title: "Senior Merchandiser", dept: "Sourcing", role: "STAFF"},
+            {name: "Emel Tor", title: "Merchandiser", dept: "Sourcing", role: "STAFF"},
+            {name: "Sude Nur Ertekin", title: "Jr. Merchandiser", dept: "Sourcing", role: "STAFF"},
+            {name: "Aykut Üstün", title: "Sourcing & Category Director", dept: "Sourcing & Category", role: "MANAGER"},
+            {name: "Emine Öztürk", title: "Category Assistant Manager", dept: "Category", role: "STAFF"},
+            {name: "Emel Büyükmil", title: "Category Manager", dept: "Category", role: "MANAGER"},
+            {name: "Tuğçe Karadayı Kaya", title: "Buyer", dept: "Category", role: "STAFF"},
             {name: "Berker Bengi", title: "Digital Marketing Manager", dept: "Pazarlama", role: "MANAGER"},
-            {name: "Selen Murat", title: "Marketing Specialist", dept: "Pazarlama", role: "STAFF"},
-            {name: "Ali Sönmez", title: "IT Support Specialist", dept: "IT Support", role: "STAFF"},
-            {name: "Ayşenur Dinçer", title: "HR Manager", dept: "İK", role: "MANAGER"}
+            {name: "Selen Murat", title: "Marketing Assistant Specialist", dept: "Pazarlama", role: "STAFF"},
+            {name: "Yiğit Yamaner", title: "Marketing Specialist", dept: "Pazarlama", role: "STAFF"},
+            {name: "Özen Emine Şenol", "title": "Content Editor", "dept": "Pazarlama", "role": "STAFF"},
+            {name: "Donı Sutardı", "title": "CRM Specialist", "dept": "Pazarlama", "role": "STAFF"},
+            {name: "Zafer Dayar", title: "Operations & CX Director", dept: "Delivery & CX", role: "MANAGER"},
+            {name: "Recep Salihoğulları", title: "Logistics Operation Senior Manager", dept: "Warehouse", role: "MANAGER"},
+            {name: "Müge Hardal Yıldırım", title: "Senior Logistics Operation Specialist", dept: "Warehouse", role: "STAFF"},
+            {name: "Cem Bakıral", title: "Senior Logistics Operation Specialist", dept: "Warehouse", role: "STAFF"},
+            {name: "Yüsra Davran", title: "Senior Logistics Operation Specialist", dept: "Warehouse", role: "STAFF"},
+            {name: "Tayfun Mengücek", title: "Senior Logistics Operation Specialist", dept: "Warehouse", role: "STAFF"},
+            {name: "Mustafa Yazlık", title: "Logistics Operation Team Lead", dept: "Warehouse", role: "STAFF"},
+            {name: "Melih Olcay Dinç", title: "Delivery Manager", dept: "Delivery", role: "MANAGER"},
+            {name: "Zeki Kılıç", title: "Logistics Operation Assistant Specialist", dept: "Delivery", role: "STAFF"},
+            {name: "Serap Çoban", title: "Delivery Operations Executive", dept: "Delivery", role: "STAFF"},
+            {name: "Mustafa Bilal Sertelli", title: "Supplier Opex Senior Specialist", dept: "CX & Supplier Operations", role: "STAFF"},
+            {name: "Hilal Ertürk", title: "Supplier Operations Senior Specialist", dept: "CX & Supplier Operations", role: "STAFF"},
+            {name: "Pınar Turhan", title: "Customer Experience Team Lead", dept: "CX & Supplier Operations", role: "MANAGER"},
+            {name: "Özlem Güneş Özcan", title: "Studio & Fashion Content Manager", dept: "Stüdyo", role: "MANAGER"},
+            {name: "Volkan Demirci", title: "Senior Sample Operation Specialist", dept: "Stüdyo", role: "STAFF"},
+            {name: "Serhat Can Çağlar", title: "Senior Photographer", dept: "Stüdyo", role: "STAFF"},
+            {name: "Elçin Sokullu", title: "Retoucher", dept: "Stüdyo", role: "STAFF"},
+            {name: "Ceren Özdinç", title: "Makeup Artist", dept: "Stüdyo", role: "STAFF"},
+            {name: "Sadık Aykan", title: "Finance Manager", dept: "Finans", role: "MANAGER"},
+            {name: "Ayfer Ülger", title: "Finance Manager", dept: "Finans", role: "MANAGER"},
+            {name: "Sena Çalışkan", title: "Finance Manager", dept: "Finans", role: "MANAGER"},
+            {name: "Okan Talen", title: "Finance Manager", dept: "Finans", role: "MANAGER"},
+            {name: "Ayşenur Dinçer", title: "HR Manager", dept: "İK", role: "HR_ADMIN"},
+            {name: "Merve Doğan", title: "HR Specialist", dept: "İK", role: "STAFF"},
+            {name: "Nihal Kasap", title: "HR Specialist", dept: "İK", role: "STAFF"},
+            {name: "Ceren Yılmaz", title: "HR Specialist", dept: "İK", role: "STAFF"}
         ];
 
+        const depts = [...new Set(users.map(u => u.dept))].sort();
+
+        function initTabs() {
+            const container = document.getElementById('dept-tabs');
+            depts.forEach(d => {
+                const btn = document.createElement('button');
+                btn.onclick = () => filterDept(d);
+                btn.id = `tab-${d.replace(/\s/g, '')}`;
+                btn.className = "px-4 py-2 text-slate-400 hover:text-white transition whitespace-nowrap uppercase";
+                btn.innerText = d;
+                container.appendChild(btn);
+            });
+        }
+
         function filterDept(dept) {
-            // Tab stillerini güncelle
             document.querySelectorAll('button[id^="tab-"]').forEach(btn => {
                 btn.classList.remove('tab-active');
                 btn.classList.add('text-slate-400');
             });
-            const activeTab = document.getElementById(dept === 'ALL' ? 'tab-ALL' : (dept.includes('Planning') ? 'tab-Planning' : (dept.includes('Ecom') ? 'tab-Ecom' : (dept.includes('Retail') ? 'tab-Retail' : (dept.includes('Pazarlama') ? 'tab-Pazarlama' : (dept.includes('IT') ? 'tab-IT' : 'tab-Sourcing'))))));
+            const activeTab = document.getElementById(dept === 'ALL' ? 'tab-ALL' : `tab-${dept.replace(/\s/g, '')}`);
             if(activeTab) {
                 activeTab.classList.add('tab-active');
                 activeTab.classList.remove('text-slate-400');
             }
 
-            // Tabloyu filtrele
-            const filtered = dept === 'ALL' ? users : users.filter(u => u.dept.includes(dept));
+            const filtered = dept === 'ALL' ? users : users.filter(u => u.dept === dept);
             const tbody = document.getElementById('personel-body');
             tbody.innerHTML = filtered.map(u => `
                 <tr class="hover:bg-slate-800/20 transition">
@@ -122,23 +181,23 @@
                     <td class="py-4 px-2 text-slate-400">${u.title}</td>
                     <td class="py-4 px-2">${u.dept}</td>
                     <td class="py-4 px-2">
-                        <span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${u.role === 'ADMIN' ? 'bg-red-500/20 text-red-400' : (u.role === 'MANAGER' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400')}">
+                        <span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${u.role === 'ADMIN' ? 'bg-red-500/20 text-red-400' : (u.role === 'MANAGER' || u.role === 'HR_ADMIN' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400')}">
                             ${u.role}
                         </span>
                     </td>
                 </tr>
             `).join('');
 
-            document.getElementById('dept-title').innerText = dept === 'ALL' ? 'Tüm Departmanlar' : dept;
+            document.getElementById('dept-title').innerText = dept === 'ALL' ? 'Tüm Şirket' : dept;
+            document.getElementById('count-label').innerText = filtered.length;
             
-            // Sağ paneli güncelle
-            const manager = filtered.find(u => u.role === 'MANAGER');
+            const manager = filtered.find(u => u.role === 'MANAGER' || u.role === 'HR_ADMIN');
             document.getElementById('dept-info').innerHTML = dept === 'ALL' ? 
-                "Tüm şirketi görüntülüyorsunuz." : 
-                `<b>Yönetici:</b> ${manager ? manager.name : 'Tanımlanmadı'}<br><b>Ekip Sayısı:</b> ${filtered.length} Personel`;
+                `<b>Toplam Kadro:</b> ${users.length} Personel<br><b>Aktif Departman:</b> ${depts.length}` : 
+                `<b>Yönetici:</b> ${manager ? manager.name : 'Chief'}<br><b>Ekip Sayısı:</b> ${filtered.length} Personel`;
         }
 
-        // İlk açılışta Tümü
+        initTabs();
         filterDept('ALL');
     </script>
 </body>
