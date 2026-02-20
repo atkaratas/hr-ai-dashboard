@@ -3,178 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warlock HR AI - Enterprise Dashboard</title>
+    <title>Warlock HR AI - Dynamic Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0f172a; color: #e2e8f0; font-family: 'Inter', sans-serif; }
         .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-        .tab-active { border-bottom: 2px solid #60a5fa; color: #60a5fa; }
+        .hidden { display: none; }
     </style>
 </head>
 <body class="p-4 md:p-8">
     <div class="max-w-7xl mx-auto">
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <header class="flex justify-between items-center mb-8">
             <div>
-                <h1 class="text-4xl font-extrabold text-blue-400 tracking-tight">🧙‍♂️ Warlock HR AI <span class="text-sm font-normal text-slate-500 ml-2">v2.1 Enterprise</span></h1>
-                <p class="text-slate-400">37 Personel | 10 Departman | Canlı Veri Analizi</p>
+                <h1 class="text-3xl font-bold text-blue-400">🧙‍♂️ Warlock HR AI <span id="view-label" class="text-sm font-normal text-slate-500 ml-2">Dinamik Görünüm</span></h1>
+                <p id="user-info" class="text-slate-400">Giriş Yapıldı: Misafir</p>
             </div>
-            <div class="flex gap-4">
+            <div id="admin-only-stats" class="hidden flex gap-4">
                 <div class="glass px-4 py-2 rounded-lg text-right">
-                    <div class="text-xs text-slate-500 uppercase font-bold">Kasa Durumu</div>
-                    <div class="text-xl font-mono text-green-400">142.350,00 TL</div>
-                </div>
-                <div class="glass px-4 py-2 rounded-lg text-right">
-                    <div class="text-xs text-slate-500 uppercase font-bold">Sistem Saati</div>
-                    <div class="font-mono text-blue-300">2026-02-20 11:35</div>
+                    <div class="text-xs text-slate-500 uppercase">Toplam Maliyet</div>
+                    <div class="text-xl font-mono text-red-400">₺542.000</div>
                 </div>
             </div>
         </header>
 
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div class="glass p-6 rounded-2xl border-l-4 border-blue-500">
-                <div class="text-slate-400 text-sm font-medium mb-1">Toplam Personel</div>
-                <div class="text-3xl font-bold text-white">37</div>
-                <div class="text-xs text-blue-400 mt-2">10 Departman Aktif</div>
-            </div>
-            <div class="glass p-6 rounded-2xl border-l-4 border-yellow-500">
-                <div class="text-slate-400 text-sm font-medium mb-1">Bekleyen Onaylar</div>
-                <div class="text-3xl font-bold text-white">4</div>
-                <div class="text-xs text-yellow-400 mt-2">1 Masraf, 3 İzin</div>
-            </div>
-            <div class="glass p-6 rounded-2xl border-l-4 border-red-500">
-                <div class="text-slate-400 text-sm font-medium mb-1">Aylık Harcama</div>
-                <div class="text-3xl font-bold text-white">18.450 TL</div>
-                <div class="text-xs text-red-400 mt-2">Bütçe Doluluk: %9</div>
-            </div>
-            <div class="glass p-6 rounded-2xl border-l-4 border-green-500">
-                <div class="text-slate-400 text-sm font-medium mb-1">İzinli Sayısı</div>
-                <div class="text-3xl font-bold text-white">2</div>
-                <div class="text-xs text-green-400 mt-2">Bugün Ofis Dışı</div>
+        <!-- Role Selector (Simulation for Demo) -->
+        <div class="mb-8 p-4 glass rounded-xl border-blue-500/30 border">
+            <label class="text-xs font-bold text-blue-400 uppercase block mb-2">Görünüm Testi (Rol Seçin):</label>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="switchView('STAFF')" class="px-3 py-1 bg-slate-700 rounded text-xs">STAFF (Taylan)</button>
+                <button onclick="switchView('MANAGER')" class="px-3 py-1 bg-slate-700 rounded text-xs">MANAGER (Senan)</button>
+                <button onclick="switchView('HR')" class="px-3 py-1 bg-slate-700 rounded text-xs">HR / GM / GMY</button>
+                <button onclick="switchView('ADMIN')" class="px-3 py-1 bg-blue-600 rounded text-xs font-bold">ADMIN (Chief)</button>
             </div>
         </div>
 
-        <!-- Filters & Tabs -->
-        <div class="flex flex-wrap gap-4 mb-6 border-b border-slate-700 pb-2 overflow-x-auto text-sm">
-            <button class="px-3 py-2 tab-active font-semibold">Genel Bakış</button>
-            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Pazarlama</button>
-            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Ecom</button>
-            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Retail</button>
-            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Planning</button>
-            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Sourcing & PL</button>
-            <button class="px-3 py-2 text-slate-400 hover:text-white transition">IT & ERP</button>
+        <!-- Dashboard Content -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass p-4 rounded-xl">
+                <div class="text-slate-400 text-sm">İzin Durumu</div>
+                <div id="stat-leave" class="text-2xl font-bold text-blue-400">-</div>
+            </div>
+            <div class="glass p-4 rounded-xl">
+                <div class="text-slate-400 text-sm">Masraf Durumu</div>
+                <div id="stat-expense" class="text-2xl font-bold text-yellow-400">-</div>
+            </div>
+            <div id="manager-stat" class="hidden glass p-4 rounded-xl">
+                <div class="text-slate-400 text-sm">Ekip Onay Bekleyen</div>
+                <div class="text-2xl font-bold text-red-400">5</div>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Sol Panel: Son Aktiviteler -->
-            <div class="lg:col-span-2 space-y-6">
-                <div class="glass p-6 rounded-2xl text-xs sm:text-sm">
-                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-                        <span class="w-2 h-6 bg-blue-500 rounded-full"></span>
-                        Son İK Hareketleri
-                    </h2>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="text-xs text-slate-500 uppercase border-b border-slate-800">
-                                <tr>
-                                    <th class="pb-3 px-2">Personel</th>
-                                    <th class="pb-3 px-2">Departman</th>
-                                    <th class="pb-3 px-2">İşlem</th>
-                                    <th class="pb-3 px-2">Tutar/Süre</th>
-                                    <th class="pb-3 px-2">Durum</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-800">
-                                <tr class="hover:bg-slate-800/30 transition">
-                                    <td class="py-4 px-2 font-medium">Senan Daşdemir</td>
-                                    <td class="py-4 px-2">Ecom</td>
-                                    <td class="py-4 px-2 text-slate-400">Masraf Onayı</td>
-                                    <td class="py-4 px-2">1.399,00 TL</td>
-                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-[10px] font-bold">ONAYLANDI</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-800/30 transition">
-                                    <td class="py-4 px-2 font-medium">Berker Bengi</td>
-                                    <td class="py-4 px-2">Pazarlama</td>
-                                    <td class="py-4 px-2 text-slate-400">Yeni Personel Kaydı</td>
-                                    <td class="py-4 px-2">-</td>
-                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded-full text-[10px] font-bold">SİSTEME EKLENDİ</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-800/30 transition text-slate-300">
-                                    <td class="py-4 px-2 font-medium">Chief (Deniz T.)</td>
-                                    <td class="py-4 px-2">Yönetim</td>
-                                    <td class="py-4 px-2 text-slate-400">Yıllık İzin</td>
-                                    <td class="py-4 px-2">2 Gün</td>
-                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-[10px] font-bold">KESİNLEŞTİ</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass p-6 rounded-2xl">
-                        <h3 class="text-sm font-bold text-slate-500 uppercase mb-4">Kadro Dağılımı</h3>
-                        <div class="space-y-3">
-                            <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Retail</span> <span>22%</span></div>
-                                <div class="w-full bg-slate-800 h-1.5 rounded-full"><div class="bg-blue-500 h-1.5 rounded-full w-[22%]"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Pazarlama</span> <span>14%</span></div>
-                                <div class="w-full bg-slate-800 h-1.5 rounded-full"><div class="bg-orange-500 h-1.5 rounded-full w-[14%]"></div></div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Ecom</span> <span>19%</span></div>
-                                <div class="w-full bg-slate-800 h-1.5 rounded-full"><div class="bg-purple-500 h-1.5 rounded-full w-[19%]"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="glass p-6 rounded-2xl flex flex-col justify-center items-center text-center">
-                        <div class="text-4xl mb-2">📥</div>
-                        <h3 class="font-bold">Veri Dışa Aktar</h3>
-                        <p class="text-xs text-slate-500 mb-4">37 Personel ve finansal kayıtlar (V2.1).</p>
-                        <a href="data/mock_data.xlsx" download class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-bold transition">Excel'i İndir</a>
-                    </div>
+            <div class="lg:col-span-2 glass p-6 rounded-2xl">
+                <h2 id="table-title" class="text-xl font-bold mb-4">İşlemler</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="border-b border-slate-800 text-slate-500 uppercase text-xs">
+                            <tr>
+                                <th class="py-3 px-2">Personel</th>
+                                <th class="py-3 px-2">Tür</th>
+                                <th class="py-3 px-2">Detay</th>
+                                <th class="py-3 px-2">Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table" class="divide-y divide-slate-800">
+                            <!-- Data injected by JS -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- Sağ Panel: AI Raporlama & Hızlı İşlemler -->
             <div class="space-y-6">
-                <div class="glass p-6 rounded-2xl bg-gradient-to-br from-orange-900/10 to-transparent border-t border-orange-500/30">
-                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-                        <span class="text-orange-400">🤖</span> Pazarlama Analizi
-                    </h2>
-                    <div class="text-sm text-slate-300 leading-relaxed mb-4">
-                        "Pazarlama ekibine eklenen 5 yeni personel ile kampanya yoğunluğu artacaktır. Influencer bütçeleri için yeni bir onay limiti tanımlanabilir."
-                    </div>
-                    <div class="p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
-                        <div class="text-xs text-orange-400 font-bold uppercase">Kritik Görev</div>
-                        <div class="text-xs mt-1 text-slate-400">Berker Bengi (Marketing Manager) departman onayları için yetkilendirildi.</div>
-                    </div>
+                <div id="hr-insights" class="hidden glass p-6 rounded-2xl border-t-2 border-orange-500">
+                    <h3 class="font-bold mb-2">HR İçgörü (AI)</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Şirket genelinde yıllık izin kullanım oranı %12 artış gösterdi. Planlama ekibinin izinleri çakışıyor.</p>
                 </div>
-
                 <div class="glass p-6 rounded-2xl">
-                    <h2 class="text-lg font-bold mb-4 text-xs sm:text-base">Aktif Yöneticiler</h2>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-[10px]">BB</div>
-                            <div class="flex-1">
-                                <div class="text-xs font-bold">Berker Bengi</div>
-                                <div class="text-[10px] text-slate-500">Digital Marketing Manager</div>
-                            </div>
-                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                        </div>
-                        <div class="flex items-center gap-3 text-slate-400">
-                            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-[10px]">TK</div>
-                            <div class="flex-1">
-                                <div class="text-xs font-bold">Talha Karataş</div>
-                                <div class="text-[10px] text-slate-500">Technology Director</div>
-                            </div>
-                        </div>
+                    <h3 class="font-bold mb-4">Hızlı İşlemler</h3>
+                    <div id="action-buttons" class="space-y-2">
+                        <button class="w-full py-2 bg-slate-800 hover:bg-slate-700 rounded text-xs">İzin Talebi Oluştur</button>
+                        <button class="w-full py-2 bg-slate-800 hover:bg-slate-700 rounded text-xs">Masraf Fişi Yükle</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        const data = {
+            STAFF: {
+                label: "Personel Görünümü",
+                user: "Taylan Kasap (Developer)",
+                stats: { leave: "15 Gün Kalan", expense: "₺450 Beklemede" },
+                rows: [["Taylan Kasap", "Masraf", "Mesai Yemeği", "BEKLEMEDE"]],
+                actions: ["İzin Talebi", "Masraf Yükle"]
+            },
+            MANAGER: {
+                label: "Yönetici Görünümü (Ecom)",
+                user: "Senan Daşdemir (Manager)",
+                stats: { leave: "20 Gün Kalan", expense: "₺1.399 Onaylandı" },
+                rows: [
+                    ["Taylan Kasap", "Masraf", "Mesai Yemeği", "ONAY BEKLİYOR"],
+                    ["Okan Şeremet", "İzin", "Yıllık İzin", "ONAY BEKLİYOR"],
+                    ["Senan D.", "Masraf", "Kiğılı", "ONAYLANDI"]
+                ],
+                actions: ["İzin Talebi", "Masraf Yükle", "Ekip Onayları"]
+            },
+            HR: {
+                label: "HR / GM / GMY Görünümü",
+                user: "Ayşenur Dinçer (HR Manager)",
+                stats: { leave: "22 Bekleyen", expense: "₺18.450 Toplam" },
+                rows: [
+                    ["Taylan (Ecom)", "Masraf", "450 TL", "ONAY BEKLİYOR"],
+                    ["Abdullah (Plan)", "İzin", "3 Gün", "ONAYLANDI"],
+                    ["Alper (Retail)", "Masraf", "2.500 TL", "ONAY BEKLİYOR"]
+                ],
+                actions: ["Tüm Raporlar", "Maaş Listeleri", "İzin Takvimi"]
+            },
+            ADMIN: {
+                label: "Admin Paneli (Chief)",
+                user: "Deniz Tekin (Chief)",
+                stats: { leave: "24 Bekleyen", expense: "₺142.350 Borç" },
+                rows: [
+                    ["Senan D.", "Maaş", "Gizli Veri", "GÖRÜNTÜLE"],
+                    ["Sami Güzel", "Onay", "Tüm Şirket", "YÖNET"],
+                    ["Sistem", "Log", "Yeni Kullanıcı", "AKTİF"]
+                ],
+                actions: ["Sistem Ayarları", "Yetki Yönetimi", "Excel Dışa Aktar"]
+            }
+        };
+
+        function switchView(role) {
+            const view = data[role];
+            document.getElementById('view-label').innerText = view.label;
+            document.getElementById('user-info').innerText = "Giriş Yapıldı: " + view.user;
+            document.getElementById('stat-leave').innerText = view.stats.leave;
+            document.getElementById('stat-expense').innerText = view.stats.expense;
+            
+            const tbody = document.getElementById('data-table');
+            tbody.innerHTML = view.rows.map(row => `
+                <tr>
+                    <td class="py-3 px-2">${row[0]}</td>
+                    <td class="py-3 px-2">${row[1]}</td>
+                    <td class="py-3 px-2 text-slate-400">${row[2]}</td>
+                    <td class="py-3 px-2"><span class="text-xs font-bold">${row[3]}</span></td>
+                </tr>
+            `).join('');
+
+            // UI Hardening based on role
+            document.getElementById('admin-only-stats').classList.toggle('hidden', role !== 'ADMIN' && role !== 'HR');
+            document.getElementById('manager-stat').classList.toggle('hidden', role === 'STAFF');
+            document.getElementById('hr-insights').classList.toggle('hidden', role !== 'HR' && role !== 'ADMIN');
+        }
+
+        // Default view
+        switchView('ADMIN');
+    </script>
 </body>
 </html>
