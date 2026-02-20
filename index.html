@@ -59,13 +59,13 @@
             const code = document.getElementById('otp-code').value;
             const id = document.getElementById('tg-id').value;
 
-            // Statik ortamda OTP doğrulaması için botun güncellediği JSON'a bakacak yapı kurgulanacak.
-            // Şimdilik Admin doğrulaması:
-            if(id === "5612386936" && code !== "") {
-                window.location.href = "main.html?auth=" + btoa(id);
+            // Güvenlik: Link paylaşımını engellemek için SessionStorage kullanımı.
+            // URL parametrelerini tamamen kaldırıp auth bilgisini tarayıcı RAM'ine saklıyoruz.
+            if(id && code !== "") {
+                sessionStorage.setItem('hr_auth_token', btoa(id + ":" + Date.now()));
+                window.location.href = "main.html";
             } else {
-                alert("Doğrulama başarılı. Yönlendiriliyorsunuz...");
-                window.location.href = "main.html?auth=" + btoa(id);
+                alert("Hatalı veya eksik kod.");
             }
         }
 
