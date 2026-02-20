@@ -1,0 +1,16 @@
+[
+  {"id": "5612386936", "name": "Deniz Tekin", "title": "Chief", "dept": "Yönetim", "role": "ADMIN"},
+  {"id": "pending_1", "name": "Talha Karataş", "title": "Technology Director", "dept": "Genel", "role": "MANAGER"},
+  {"id": "pending_2", "name": "Ali Sönmez", "title": "IT Support Specialist", "dept": "IT Support", "role": "STAFF"},
+  {"id": "pending_3", "name": "Emre Büyükperdahcı", "title": "System Admin", "dept": "IT Support", "role": "STAFF"},
+  {"id": "pending_4", "name": "Ramazan Döleker", "title": "ERP Product Owner", "dept": "ERP", "role": "MANAGER"},
+  {"id": "pending_5", "name": "Erdem Dayı", "title": "Developer", "dept": "Retail & Operations & ERP", "role": "STAFF"},
+  {"id": "pending_6", "name": "Haluk Gül", "title": "QA Engineer", "dept": "Ecom ERP", "role": "STAFF"},
+  {"id": "pending_7", "name": "Mehmet Altuntaş", "title": "Data Analyst", "dept": "DATA & BI", "role": "STAFF"},
+  {"id": "pending_8", "name": "Okan Şeremet", "title": "Developer", "dept": "Ecom", "role": "STAFF"},
+  {"id": "pending_9", "name": "Taylan Kasap", "title": "Developer", "dept": "Ecom", "role": "STAFF"},
+  {"id": "pending_10", "name": "Yasin Ahlatcı", "title": "DevOps Engineer", "dept": "Ecom", "role": "STAFF"},
+  {"id": "8494112587", "name": "Senan Daşdemir", "title": "Technologist / PO", "dept": "Ecom", "role": "MANAGER"},
+  {"id": "pending_12", "name": "Murat Ermiş", "title": "Developer", "dept": "Ecom", "role": "STAFF"},
+  {"id": "pending_13", "name": "Erhan Ariş", "title": "Developer", "dept": "Ecom", "role": "STAFF"}
+]
