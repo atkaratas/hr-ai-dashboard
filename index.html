@@ -44,33 +44,39 @@
     </div>
 
     <script>
-        function requestOTP() {
-            const id = document.getElementById('tg-id').value;
-            if(!id) return alert("Lütfen Telegram ID giriniz.");
-            
-            // Simulating API call to bot
-            console.log("OTP requested for: " + id);
-            document.getElementById('step-1').classList.add('hidden');
-            document.getElementById('step-2').classList.remove('hidden');
-        }
-
-        function verifyOTP() {
+        // GERÇEK GÜVENLİK KONTROLÜ
+        async function verifyOTP() {
             const code = document.getElementById('otp-code').value;
             const id = document.getElementById('tg-id').value;
 
-            // Güvenlik: Link paylaşımını engellemek için SessionStorage kullanımı.
-            // URL parametrelerini tamamen kaldırıp auth bilgisini tarayıcı RAM'ine saklıyoruz.
-            if(id && code !== "") {
-                sessionStorage.setItem('hr_auth_token', btoa(id + ":" + Date.now()));
-                window.location.href = "main.html";
-            } else {
-                alert("Hatalı veya eksik kod.");
+            if(!id || !code) {
+                alert("Lütfen tüm alanları doldurun.");
+                return;
             }
-        }
 
-        function resetFlow() {
-            document.getElementById('step-2').classList.add('hidden');
-            document.getElementById('step-1').classList.remove('hidden');
+            try {
+                // Botun güncellediği OTP dosyasını kontrol et
+                const response = await fetch('data/active_otps.json?cache_bust=' + Date.now());
+                const otps = await response.json();
+                
+                const record = otps[id];
+
+                if (record && record.otp === code && !record.used) {
+                    const now = Math.floor(Date.now() / 1000);
+                    if (now < record.expires) {
+                        // GEÇERLİ GİRİŞ: Token oluştur ve içeri al
+                        sessionStorage.setItem('hr_auth_token', btoa(id + ":" + Date.now()));
+                        window.location.href = "main.html";
+                    } else {
+                        alert("Kodun süresi dolmuş. Lütfen bota tekrar /kod yazın.");
+                    }
+                } else {
+                    alert("Hatalı veya kullanılmış kod. Lütfen bota tekrar /kod yazın.");
+                }
+            } catch (error) {
+                console.error("Auth Error:", error);
+                alert("Sistemle bağlantı kurulamadı. Lütfen tekrar deneyin.");
+            }
         }
     </script>
 </body>
