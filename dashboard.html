@@ -15,8 +15,8 @@
     <div class="max-w-7xl mx-auto">
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
-                <h1 class="text-4xl font-extrabold text-blue-400 tracking-tight">🧙‍♂️ Warlock HR AI <span class="text-sm font-normal text-slate-500 ml-2">v2.0 Enterprise</span></h1>
-                <p class="text-slate-400">32 Personel | 9 Departman | Canlı Veri Analizi</p>
+                <h1 class="text-4xl font-extrabold text-blue-400 tracking-tight">🧙‍♂️ Warlock HR AI <span class="text-sm font-normal text-slate-500 ml-2">v2.1 Enterprise</span></h1>
+                <p class="text-slate-400">37 Personel | 10 Departman | Canlı Veri Analizi</p>
             </div>
             <div class="flex gap-4">
                 <div class="glass px-4 py-2 rounded-lg text-right">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="glass px-4 py-2 rounded-lg text-right">
                     <div class="text-xs text-slate-500 uppercase font-bold">Sistem Saati</div>
-                    <div class="font-mono text-blue-300">2026-02-20 11:30</div>
+                    <div class="font-mono text-blue-300">2026-02-20 11:35</div>
                 </div>
             </div>
         </header>
@@ -34,8 +34,8 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <div class="glass p-6 rounded-2xl border-l-4 border-blue-500">
                 <div class="text-slate-400 text-sm font-medium mb-1">Toplam Personel</div>
-                <div class="text-3xl font-bold text-white">32</div>
-                <div class="text-xs text-blue-400 mt-2">9 Departman Aktif</div>
+                <div class="text-3xl font-bold text-white">37</div>
+                <div class="text-xs text-blue-400 mt-2">10 Departman Aktif</div>
             </div>
             <div class="glass p-6 rounded-2xl border-l-4 border-yellow-500">
                 <div class="text-slate-400 text-sm font-medium mb-1">Bekleyen Onaylar</div>
@@ -45,7 +45,7 @@
             <div class="glass p-6 rounded-2xl border-l-4 border-red-500">
                 <div class="text-slate-400 text-sm font-medium mb-1">Aylık Harcama</div>
                 <div class="text-3xl font-bold text-white">18.450 TL</div>
-                <div class="text-xs text-red-400 mt-2">Bütçe Doluluk: %12</div>
+                <div class="text-xs text-red-400 mt-2">Bütçe Doluluk: %9</div>
             </div>
             <div class="glass p-6 rounded-2xl border-l-4 border-green-500">
                 <div class="text-slate-400 text-sm font-medium mb-1">İzinli Sayısı</div>
@@ -55,19 +55,20 @@
         </div>
 
         <!-- Filters & Tabs -->
-        <div class="flex flex-wrap gap-4 mb-6 border-b border-slate-700 pb-2 overflow-x-auto">
-            <button class="px-4 py-2 tab-active font-semibold">Genel Bakış</button>
-            <button class="px-4 py-2 text-slate-400 hover:text-white transition">Ecom</button>
-            <button class="px-4 py-2 text-slate-400 hover:text-white transition">Retail</button>
-            <button class="px-4 py-2 text-slate-400 hover:text-white transition">Sourcing & PL</button>
-            <button class="px-4 py-2 text-slate-400 hover:text-white transition">Planning</button>
-            <button class="px-4 py-2 text-slate-400 hover:text-white transition">IT & ERP</button>
+        <div class="flex flex-wrap gap-4 mb-6 border-b border-slate-700 pb-2 overflow-x-auto text-sm">
+            <button class="px-3 py-2 tab-active font-semibold">Genel Bakış</button>
+            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Pazarlama</button>
+            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Ecom</button>
+            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Retail</button>
+            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Planning</button>
+            <button class="px-3 py-2 text-slate-400 hover:text-white transition">Sourcing & PL</button>
+            <button class="px-3 py-2 text-slate-400 hover:text-white transition">IT & ERP</button>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Sol Panel: Son Aktiviteler -->
             <div class="lg:col-span-2 space-y-6">
-                <div class="glass p-6 rounded-2xl">
+                <div class="glass p-6 rounded-2xl text-xs sm:text-sm">
                     <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
                         <span class="w-2 h-6 bg-blue-500 rounded-full"></span>
                         Son İK Hareketleri
@@ -83,34 +84,27 @@
                                     <th class="pb-3 px-2">Durum</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-sm divide-y divide-slate-800">
+                            <tbody class="divide-y divide-slate-800">
                                 <tr class="hover:bg-slate-800/30 transition">
                                     <td class="py-4 px-2 font-medium">Senan Daşdemir</td>
                                     <td class="py-4 px-2">Ecom</td>
                                     <td class="py-4 px-2 text-slate-400">Masraf Onayı</td>
                                     <td class="py-4 px-2">1.399,00 TL</td>
-                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold">ONAYLANDI</span></td>
+                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-[10px] font-bold">ONAYLANDI</span></td>
                                 </tr>
-                                <tr class="hover:bg-slate-800/30 transition text-slate-300">
-                                    <td class="py-4 px-2 font-medium">Taylan Kasap</td>
-                                    <td class="py-4 px-2">Ecom</td>
-                                    <td class="py-4 px-2 text-slate-400">Yemek Masrafı</td>
-                                    <td class="py-4 px-2">450,00 TL</td>
-                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs font-bold">BEKLEMEDE</span></td>
+                                <tr class="hover:bg-slate-800/30 transition">
+                                    <td class="py-4 px-2 font-medium">Berker Bengi</td>
+                                    <td class="py-4 px-2">Pazarlama</td>
+                                    <td class="py-4 px-2 text-slate-400">Yeni Personel Kaydı</td>
+                                    <td class="py-4 px-2">-</td>
+                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded-full text-[10px] font-bold">SİSTEME EKLENDİ</span></td>
                                 </tr>
                                 <tr class="hover:bg-slate-800/30 transition text-slate-300">
                                     <td class="py-4 px-2 font-medium">Chief (Deniz T.)</td>
                                     <td class="py-4 px-2">Yönetim</td>
                                     <td class="py-4 px-2 text-slate-400">Yıllık İzin</td>
                                     <td class="py-4 px-2">2 Gün</td>
-                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold">KESİNLEŞTİ</span></td>
-                                </tr>
-                                <tr class="hover:bg-slate-800/30 transition text-slate-300">
-                                    <td class="py-4 px-2 font-medium">Abdullah Yavuz</td>
-                                    <td class="py-4 px-2">Planning</td>
-                                    <td class="py-4 px-2 text-slate-400">Yeni Personel Kaydı</td>
-                                    <td class="py-4 px-2">-</td>
-                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-bold">SİSTEME EKLENDİ</span></td>
+                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-[10px] font-bold">KESİNLEŞTİ</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -119,81 +113,64 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="glass p-6 rounded-2xl">
-                        <h3 class="text-sm font-bold text-slate-500 uppercase mb-4">Departman Dağılımı</h3>
+                        <h3 class="text-sm font-bold text-slate-500 uppercase mb-4">Kadro Dağılımı</h3>
                         <div class="space-y-3">
                             <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Retail</span> <span>%25</span></div>
-                                <div class="w-full bg-slate-800 h-1.5 rounded-full"><div class="bg-blue-500 h-1.5 rounded-full w-[25%]"></div></div>
+                                <div class="flex justify-between text-xs mb-1"><span>Retail</span> <span>22%</span></div>
+                                <div class="w-full bg-slate-800 h-1.5 rounded-full"><div class="bg-blue-500 h-1.5 rounded-full w-[22%]"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Ecom</span> <span>%20</span></div>
-                                <div class="w-full bg-slate-800 h-1.5 rounded-full"><div class="bg-purple-500 h-1.5 rounded-full w-[20%]"></div></div>
+                                <div class="flex justify-between text-xs mb-1"><span>Pazarlama</span> <span>14%</span></div>
+                                <div class="w-full bg-slate-800 h-1.5 rounded-full"><div class="bg-orange-500 h-1.5 rounded-full w-[14%]"></div></div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs mb-1"><span>Sourcing & PL</span> <span>%15</span></div>
-                                <div class="w-full bg-slate-800 h-1.5 rounded-full"><div class="bg-green-500 h-1.5 rounded-full w-[15%]"></div></div>
+                                <div class="flex justify-between text-xs mb-1"><span>Ecom</span> <span>19%</span></div>
+                                <div class="w-full bg-slate-800 h-1.5 rounded-full"><div class="bg-purple-500 h-1.5 rounded-full w-[19%]"></div></div>
                             </div>
                         </div>
                     </div>
                     <div class="glass p-6 rounded-2xl flex flex-col justify-center items-center text-center">
                         <div class="text-4xl mb-2">📥</div>
                         <h3 class="font-bold">Veri Dışa Aktar</h3>
-                        <p class="text-xs text-slate-500 mb-4">Tüm personel ve finansal kayıtları Excel olarak indirin.</p>
-                        <a href="data/mock_data.xlsx" download class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-bold transition">Excel'i İndir (V2.0)</a>
+                        <p class="text-xs text-slate-500 mb-4">37 Personel ve finansal kayıtlar (V2.1).</p>
+                        <a href="data/mock_data.xlsx" download class="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-bold transition">Excel'i İndir</a>
                     </div>
                 </div>
             </div>
 
             <!-- Sağ Panel: AI Raporlama & Hızlı İşlemler -->
             <div class="space-y-6">
-                <div class="glass p-6 rounded-2xl bg-gradient-to-br from-blue-900/20 to-transparent border-t border-blue-500/30">
+                <div class="glass p-6 rounded-2xl bg-gradient-to-br from-orange-900/10 to-transparent border-t border-orange-500/30">
                     <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-                        <span class="text-blue-400">🤖</span> AI Finansal Öngörü
+                        <span class="text-orange-400">🤖</span> Pazarlama Analizi
                     </h2>
                     <div class="text-sm text-slate-300 leading-relaxed mb-4">
-                        "Ecom ve Sourcing departmanlarında seyahat harcamaları artış eğiliminde. Gelecek ay için %15 ek bütçe planlanması önerilir."
+                        "Pazarlama ekibine eklenen 5 yeni personel ile kampanya yoğunluğu artacaktır. Influencer bütçeleri için yeni bir onay limiti tanımlanabilir."
                     </div>
-                    <div class="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                        <div class="text-xs text-blue-400 font-bold uppercase">Kritik Uyarı</div>
-                        <div class="text-xs mt-1 text-slate-400">Ramazan Döleker'in iptal edilen avansı bütçe disiplini için loglandı.</div>
+                    <div class="p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                        <div class="text-xs text-orange-400 font-bold uppercase">Kritik Görev</div>
+                        <div class="text-xs mt-1 text-slate-400">Berker Bengi (Marketing Manager) departman onayları için yetkilendirildi.</div>
                     </div>
                 </div>
 
                 <div class="glass p-6 rounded-2xl">
-                    <h2 class="text-lg font-bold mb-4">Aktif Yöneticiler</h2>
+                    <h2 class="text-lg font-bold mb-4 text-xs sm:text-base">Aktif Yöneticiler</h2>
                     <div class="space-y-3">
                         <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs">TK</div>
+                            <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-[10px]">BB</div>
+                            <div class="flex-1">
+                                <div class="text-xs font-bold">Berker Bengi</div>
+                                <div class="text-[10px] text-slate-500">Digital Marketing Manager</div>
+                            </div>
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-400">
+                            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-[10px]">TK</div>
                             <div class="flex-1">
                                 <div class="text-xs font-bold">Talha Karataş</div>
                                 <div class="text-[10px] text-slate-500">Technology Director</div>
                             </div>
-                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs">AY</div>
-                            <div class="flex-1">
-                                <div class="text-xs font-bold">Abdullah Yavuz</div>
-                                <div class="text-[10px] text-slate-500">Planning Manager</div>
-                            </div>
-                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs">SA</div>
-                            <div class="flex-1">
-                                <div class="text-xs font-bold">Serkan Arkan</div>
-                                <div class="text-[10px] text-slate-500">PL Director</div>
-                            </div>
-                            <span class="w-2 h-2 bg-slate-600 rounded-full"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass p-6 rounded-2xl border border-dashed border-slate-700 hover:border-blue-500/50 transition cursor-help">
-                    <div class="text-center">
-                        <div class="text-2xl mb-2">➕</div>
-                        <div class="text-sm font-bold">Yeni Kural Ekle</div>
-                        <p class="text-[10px] text-slate-500">AI politikalarına yeni bir kısıtlama veya izin tanımlayın.</p>
                     </div>
                 </div>
             </div>

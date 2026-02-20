@@ -30,5 +30,10 @@
   {"id": "pending_28", "name": "Aykut Üstün", "title": "Sourcing & Category Director", "dept": "Sourcing & Category", "role": "MANAGER"},
   {"id": "pending_29", "name": "Emine Öztürk", "title": "Category Assistant Manager", "dept": "Category", "role": "STAFF"},
   {"id": "pending_30", "name": "Emel Büyükmil", "title": "Category Manager", "dept": "Category", "role": "MANAGER"},
-  {"id": "pending_31", "name": "Tuğçe Karadayı Kaya", "title": "Buyer", "dept": "Category", "role": "STAFF"}
+  {"id": "pending_31", "name": "Tuğçe Karadayı Kaya", "title": "Buyer", "dept": "Category", "role": "STAFF"},
+  {"id": "pending_32", "name": "Berker Bengi", "title": "Digital Marketing Manager", "dept": "Pazarlama", "role": "MANAGER"},
+  {"id": "pending_33", "name": "Selen Murat", "title": "Marketing Assistant Specialist", "dept": "Pazarlama", "role": "STAFF"},
+  {"id": "pending_34", "name": "Yiğit Yamaner", "title": "Marketing Specialist", "dept": "Pazarlama", "role": "STAFF"},
+  {"id": "pending_35", "name": "Özen Emine Şenol", "title": "Content Editor", "dept": "Pazarlama", "role": "STAFF"},
+  {"id": "pending_36", "name": "Donı Sutardı", "title": "CRM Specialist", "dept": "Pazarlama", "role": "STAFF"}
 ]
