@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warlock HR AI - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; border-radius: 1rem; width: 100%; max-width: 400px; }
+    </style>
+</head>
+<body>
+    <div id="login-container" class="glass">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-400 mb-2">🧙‍♂️ Warlock HR</h1>
+            <p class="text-slate-400 text-sm">Devam etmek için giriş yapın</p>
+        </div>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Personel ID</label>
+                <input type="text" id="userid" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none transition" placeholder="Örn: 1001">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Şifre</label>
+                <input type="password" id="password" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:border-blue-500 outline-none transition" placeholder="••••••••">
+            </div>
+            <button onclick="handleLogin()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-bold transition mt-4">Giriş Yap</button>
+            <p class="text-[10px] text-center text-slate-500 mt-4 italic">Şifrenizi Telegram üzerinden oluşturabilir veya değiştirebilirsiniz.</p>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin() {
+            const id = document.getElementById('userid').value;
+            const pass = document.getElementById('password').value;
+            
+            // Gerçek sistemde bu backend doğrulamasıdır. 
+            // Demo için geçici admin girişi:
+            if(id === "admin" && pass === "1234") {
+                window.location.href = "main.html";
+            } else {
+                alert("Hatalı ID veya Şifre. Lütfen Telegram üzerinden /sifre-belirle komutuyla şifrenizi oluşturun.");
+            }
+        }
+    </script>
+</body>
+</html>
